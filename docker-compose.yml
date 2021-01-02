@@ -1,6 +1,18 @@
 ---
 version: '3'
 services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:3000'
+      - '443:3000'
+    links:
+      - umami
+    restart: always
+    environment:
+      DOMAINS: 'www.trustless-services.duckdns.org -> http://umami'
+      STAGE: 'production'
+      # FORCE_RENEW: 'true'
   umami:
     image: ghcr.io/mikecao/umami:postgresql-latest
     ports:
